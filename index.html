@@ -120,19 +120,19 @@
         <label for="rating">Rate your experience:</label>
         <div class="rating-stars">
             <input type="radio" id="rating-1" name="rating" value="1" required>
-            <label for="rating-1">&#9733;&#189;</label>
+            <label for="rating-1">&#9733;</label>
             
             <input type="radio" id="rating-2" name="rating" value="2">
             <label for="rating-2">&#9733;</label>
             
             <input type="radio" id="rating-3" name="rating" value="3">
-            <label for="rating-3">&#9733;&#189;</label>
+            <label for="rating-3">&#9733;</label>
             
             <input type="radio" id="rating-4" name="rating" value="4">
             <label for="rating-4">&#9733;</label>
             
             <input type="radio" id="rating-5" name="rating" value="5">
-            <label for="rating-5">&#9733;&#189;</label>
+            <label for="rating-5">&#9733;</label>
         </div>
         
         <button type="submit">Submit</button>
@@ -151,7 +151,7 @@
             
             const rating = parseInt(document.getElementById('rating').value, 10);
 
-            if (rating >= 8) {
+            if (rating >= 4) {
                 const staticReviewLink = 'https://www.google.com/maps/place/Walker+Fire+(UK)+Ltd/@53.7896579,-2.6341908,15z/data=!4m16!1m9!3m8!1s0x487b73e129a89735:0x8a6d5a4d2716514a!2sWalker+Fire+(UK)+Ltd!8m2!3d53.7896579!4d-2.6341908!9m1!1b1!16s%2Fg%2F1v9lb9vy!3m5!1s0x487b73e129a89735:0x8a6d5a4d2716514a!8m2!3d53.7896579!4d-2.6341908!16s%2Fg%2F1v9lb9vy?entry=ttu';
 
                 try {
@@ -160,7 +160,7 @@
                     console.error('Error redirecting to review page:', error);
                     alert('Thank you for your feedback!');
                 }
-            } else if (rating >= 1 && rating <= 7) {
+            } else if (rating >= 1 && rating <= 3) {
                 showModal();
             } else {
                 showAlert('Invalid rating. Please enter a rating between 1 and 5.');
