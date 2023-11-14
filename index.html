@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Feedback</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        img {
+            max-height: 50px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            max-width: 100%;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #265cc0;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #577aea;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="https://github.com/ebaileywf/reviewtest/blob/main/walker-logo.png" alt="Walker Fire Logo">
+        <h1>Customer Feedback</h1>
+    </header>
+
+    <form id="feedbackForm">
+        <label for="rating">Rate your experience from 1-10:</label>
+        <input type="number" id="rating" name="rating" min="1" max="10" required>
+        <button type="submit">Submit</button>
+    </form>
+
+    <div id="feedbackModal" class="modal">
+        <p>Thank you for your feedback!</p>
+        <button id="closeModal">Close</button>
+    </div>
+
+    <div id="modalOverlay" class="overlay"></div>
+
+    <script>
+        document.getElementById('feedbackForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const rating = parseInt(document.getElementById('rating').value, 10);
+
+            if (rating >= 8) {
+                const staticReviewLink = 'https://www.google.com/maps/place/Walker+Fire+(UK)+Ltd/@53.7896579,-2.6341908,15z/data=!4m16!1m9!3m8!1s0x487b73e129a89735:0x8a6d5a4d2716514a!2sWalker+Fire+(UK)+Ltd!8m2!3d53.7896579!4d-2.6341908!9m1!1b1!16s%2Fg%2F1v9lb9vy!3m5!1s0x487b73e129a89735:0x8a6d5a4d2716514a!8m2!3d53.7896579!4d-2.6341908!16s%2Fg%2F1v9lb9vy?entry=ttu';
+
+                try {
+                    window.location.href = staticReviewLink;
+                } catch (error) {
+                    console.error('Error redirecting to review page:', error);
+                    alert('Thank you for your feedback!');
+                }
+            } else if (rating >= 1 && rating <= 7) {
+                showModal();
+            } else {
+                showAlert('Invalid rating. Please enter a rating between 1 and 5.');
+            }
+        });
+
+        function showModal() {
+            document.getElementById('feedbackModal').style.display = 'block';
+            document.getElementById('modalOverlay').style.display = 'block';
+
+            document.getElementById('modalOverlay').addEventListener('click', closeModal);
+
+            document.getElementById('closeModal').addEventListener('click', closeModal);
+        }
+
+        function closeModal() {
+            document.getElementById('feedbackModal').style.display = 'none';
+            document.getElementById('modalOverlay').style.display = 'none';
+
+            document.getElementById('modalOverlay').removeEventListener('click', closeModal);
+            document.getElementById('closeModal').removeEventListener('click', closeModal);
+        }
+
+        function showAlert(message) {
+            alert(message);
+        }
+    </script>
+</body>
+</html>
