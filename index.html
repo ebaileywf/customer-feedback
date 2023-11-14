@@ -23,7 +23,7 @@
             padding: 10px;
             background-color: #f5f5f5;
         }
-        
+
         img {
             max-height: 40px;
             padding: 10px;
@@ -41,7 +41,10 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 300px;
             max-width: 100%;
+            margin-bottom: 20px;
         }
+
+        
 
         label {
             display: block;
@@ -62,13 +65,16 @@
 
         .rating-stars label {
             cursor: pointer;
-            color: #ddd;
+            color: #ffcc00; 
         }
 
-        .rating-stars label:hover,
         .rating-stars input:checked ~ label,
-        .rating-stars input:hover ~ label {
+        .rating-stars label:hover ~ input:checked ~ label {
             color: #ffcc00;
+        }
+
+        .rating-stars input:checked ~ label:hover ~ label {
+            color: #ddd; 
         }
 
         button {
@@ -77,14 +83,47 @@
             border: none;
             padding: 10px;
             border-radius: 4px;
-            cursor: pointer;
+            cursor: not-allowed;
             width: 100%;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
         }
 
-        button:hover {
+        button:enabled {
+            cursor: pointer;
+            opacity: 1; 
+        }
+
+        button:hover:enabled {
             background-color: #577aea;
         }
+        
+        .sk-ww-google-reviews {
+            overflow: hidden;
+            white-space: nowrap;
+            display: flex;
+            align-items: flex-end;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px; 
+        }
 
+        .sk-ww-google-reviews .sk-ww-google-review {
+            width: 100%;
+            display: inline-block;
+            margin-right: 15px; 
+        }
+
+        .sk-ww-google-reviews .sk-ww-google-review:last-child {
+            margin-right: 0; 
+        }
+
+        .sk-ww-google-reviews .sk-ww-google-review .sk-ww-google-review-body {
+            text-align: left; 
+        }
+       
         .modal {
             display: none;
             position: fixed;
@@ -108,12 +147,14 @@
             background-color: rgba(0, 0, 0, 0.5);
             z-index: 0;
         }
+
+        
     </style>
 </head>
 <body>
 
     <header>
-        <img src="walker-logo.png" alt="walker-logo.png">
+        <img src="C:\Users\Ed Bailey\Documents\walker-logo.png" alt="walker-logo.png">
         <h1>Customer Feedback</h1>
     </header>
 
@@ -165,5 +206,8 @@
             document.getElementById('modalOverlay').style.display = 'none';
         });
     </script>
+
+    <div class='sk-ww-google-reviews' data-embed-id='225828'></div><script src='https://widgets.sociablekit.com/google-reviews/widget.js' async defer></script>
+
 </body>
 </html>
