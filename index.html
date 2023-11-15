@@ -156,7 +156,7 @@
 <body>
 
     <header>
-        <img src="walker-logo.png" alt="walker-logo.png">
+        <img src="C:\Users\Ed Bailey\Documents\walker-logo.png" alt="walker-logo.png">
         <h1>Customer Feedback</h1>
     </header>
 
@@ -189,24 +189,36 @@
 
     <div id="modalOverlay" class="overlay"></div>
 
+    <div id="reviewModal" class="modal">
+        <p>Thank you for your feedback! If you would consider leaving a Google review it would mean the world to us!</p>
+        <button id="leaveReview">Click here to leave a review</button>
+    </div>
+
     <script>
-        document.getElementById('feedbackForm').addEventListener('submit', function (e) {
-            e.preventDefault();
+    document.getElementById('feedbackForm').addEventListener('submit', function (e) {
+        e.preventDefault();
 
-            var rating = document.querySelector('input[name="rating"]:checked').value;
+        var rating = document.querySelector('input[name="rating"]:checked').value;
 
-            if (rating >= 4) {
-                window.location.href = 'https://www.google.com/maps/place/Walker+Fire+(UK)+Ltd/@53.7896579,-2.6341908,15z/data=!4m16!1m9!3m8!1s0x487b73e129a89735:0x8a6d5a4d2716514a!2sWalker+Fire+(UK)+Ltd!8m2!3d53.7896579!4d-2.6341908!9m1!1b1!16s%2Fg%2F1v9lb9vy!3m5!1s0x487b73e129a89735:0x8a6d5a4d2716514a!8m2!3d53.7896579!4d-2.6341908!16s%2Fg%2F1v9lb9vy?entry=ttu';
-            } else {
-                document.getElementById('feedbackModal').style.display = 'block';
-                document.getElementById('modalOverlay').style.display = 'block';
-            }
-        });
+        if (rating >= 4) {
+        document.getElementById('reviewModal').style.display = 'block';
+        document.getElementById('modalOverlay').style.display = 'block';
+        } else {
+        document.getElementById('feedbackModal').style.display = 'block';
+        document.getElementById('modalOverlay').style.display = 'block';
+        }
+    });
 
-        document.getElementById('closeModal').addEventListener('click', function () {
-            document.getElementById('feedbackModal').style.display = 'none';
-            document.getElementById('modalOverlay').style.display = 'none';
-        });
+    document.getElementById('closeModal').addEventListener('click', function () {
+        document.getElementById('feedbackModal').style.display = 'none';
+        document.getElementById('reviewModal').style.display = 'none';
+        document.getElementById('modalOverlay').style.display = 'none';
+    });
+
+    document.getElementById('leaveReview').addEventListener('click', function () {
+        window.location.href = 'https://www.google.com/maps/place/Walker+Fire+(UK)+Ltd/@53.7896579,-2.6341908,15z/data=!4m16!1m9!3m8!1s0x487b73e129a89735:0x8a6d5a4d2716514a!2sWalker+Fire+(UK)+Ltd!8m2!3d53.7896579!4d-2.6341908!9m1!1b1!16s%2Fg%2F1v9lb9vy!3m5!1s0x487b73e129a89735:0x8a6d5a4d2716514a!8m2!3d53.7896579!4d-2.6341908!16s%2Fg%2F1v9lb9vy?entry=ttu';
+    });
+
     </script>
 
     <div class='sk-ww-google-reviews' data-embed-id='225828'></div><script src='https://widgets.sociablekit.com/google-reviews/widget.js' async defer></script>
