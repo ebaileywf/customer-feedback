@@ -28,7 +28,6 @@
         img {
             max-height: 80px;
             padding: 10px;
-            margin-bottom: 10px;
         }
 
         h1 {
@@ -51,7 +50,7 @@
             width: 300px;
             max-width: 100%;
             margin-bottom: 400px;
-            margin-top: 70px;
+            margin-top: 80px;
         }
 
         label {
@@ -152,6 +151,12 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             z-index: 1;
+            text-align: center; 
+        }
+
+        .modal img {
+            max-width: 100%; 
+            margin-top: 15px; 
         }
 
         .overlay {
@@ -233,6 +238,7 @@
 
         <div id="reviewModal" class="modal">
             <p>Thank you for your feedback! If you would consider leaving a Google review it would mean the world to us!</p>
+            <img src="map-review.png" alt="how-to-leave-a-review">
             <button id="leaveReview">Click here to leave a review</button>
         </div>
 
