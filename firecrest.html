@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Feedback</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+            background-color: #f5f5f5;
+        }
+
+        img {
+            max-height: 80px;
+            padding: 11px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 5px;  
+        }
+
+        .content-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            max-width: 100%;
+            margin-bottom: 400px;
+            margin-top: 60px;
+        }
+
+        label {
+            display: block;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            color: #1c1c1b;
+        }
+
+        .rating-stars {
+            display: flex;
+            justify-content: space-between;
+            font-size: 40px;
+            margin-bottom: 16px;
+        }
+
+        .rating-stars input {
+            display: none;
+        }
+
+        .rating-stars label {
+            cursor: pointer;
+            color: #ddd;
+        }
+
+        .rating-stars input:checked ~ label,
+        .rating-stars label:hover {
+            color: #ffcc00;
+        }
+
+        .rating-stars input:checked ~ label ~ label {
+            color: #ddd;
+        }
+
+        .rating-stars label.gold {
+            color: #ffcc00;
+        }
+
+        .rating-stars label.gray {
+            color: #ddd;
+        }
+
+        button {
+            background-color: #265cc0;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: not-allowed;
+            width: 100%;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+
+        button:enabled {
+            cursor: pointer;
+            opacity: 1;
+        }
+
+        button:hover:enabled {
+            background-color: #577aea;
+        }
+
+        .sk-ww-google-reviews {
+            overflow: hidden;
+            white-space: nowrap;
+            display: flex;
+            align-items: flex-end;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px;
+        }
+
+        .sk-ww-google-reviews .sk-ww-google-review {
+            width: 100%;
+            display: inline-block;
+            margin-right: 15px;
+        }
+
+        .sk-ww-google-reviews .sk-ww-google-review:last-child {
+            margin-right: 0;
+        }
+
+        .sk-ww-google-reviews .sk-ww-google-review .sk-ww-google-review-body {
+            text-align: left;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+            text-align: center; 
+        }
+
+        .modal img {
+            width: 100%;
+            max-height: 500px;
+            margin-top: 15px; 
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 0;
+        }
+
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+        }
+
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid #3498db;
+            width: 40px;
+            height: 40px;
+            animation: spin 0.5s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="firecrest-logo.jpg" alt="firecrest-logo.jpg">
+        <h1>Customer Feedback</h1>
+    </header>
+
+    <div class="content-container">
+        <form id="feedbackForm">
+            <label for="rating">Please rate your experience from 1-5:</label>
+            <div class="rating-stars">
+                <input type="radio" id="rating-1" name="rating" value="1" required>
+                <label for="rating-1">&#9733;</label>
+
+                <input type="radio" id="rating-2" name="rating" value="2">
+                <label for="rating-2">&#9733;</label>
+
+                <input type="radio" id="rating-3" name="rating" value="3">
+                <label for="rating-3">&#9733;</label>
+
+                <input type="radio" id="rating-4" name="rating" value="4">
+                <label for="rating-4">&#9733;</label>
+
+                <input type="radio" id="rating-5" name="rating" value="5">
+                <label for="rating-5">&#9733;</label>
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+
+        <div id="feedbackModal" class="modal">
+            <p>Thank you for your feedback! Please click below to provide more detail!</p>
+            <button id="closeModal">Click here to provide more detail</button>
+        </div>
+
+        <div id="modalOverlay" class="overlay"></div>
+
+        <div id="reviewModal" class="modal">
+            <p>Thank you for your feedback! If you would consider leaving a Google review it would mean the world to us!</p>
+            <img src="map-review.png" alt="map-review.png">
+            <button id="leaveReview">Click here to leave a review</button>
+        </div>
+
+        <div id="modalOverlay" class="overlay"></div>
+
+        <div id="loading" class="loading-overlay">
+            <div class="loading-spinner"></div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('feedbackForm').addEventListener('submit', function (e) {
+          e.preventDefault();
+      
+          var rating = document.querySelector('input[name="rating"]:checked').value;
+      
+          document.getElementById('loading').style.display = 'flex';
+      
+          setTimeout(function () {
+            if (rating >= 4) {
+              document.getElementById('loading').style.display = 'none';
+      
+              setTimeout(function () {
+                document.getElementById('reviewModal').style.display = 'block';
+                document.getElementById('modalOverlay').style.display = 'block';
+              }, 0); 
+            } else {
+              document.getElementById('loading').style.display = 'none';
+      
+              setTimeout(function () {
+                document.getElementById('feedbackModal').style.display = 'block';
+                document.getElementById('modalOverlay').style.display = 'block';
+              }, 0); 
+            }
+          }, 500); 
+        });
+      
+        document.getElementById('leaveReview').addEventListener('click', function () {
+          window.open('https://www.google.com/maps/place/Fire+Crest+Fire+Protection/@50.2263474,-5.2662287,19z/data=!3m1!4b1!4m15!1m8!3m7!1s0x486adfaad6d6d61d:0x7acad69b65feae7d!2sFire+Crest+Fire+Protection!8m2!3d50.2263465!4d-5.265585!10e5!16s%2Fg%2F1td2gb90!3m5!1s0x486adfaad6d6d61d:0x7acad69b65feae7d!8m2!3d50.2263465!4d-5.265585!16s%2Fg%2F1td2gb90?entry=ttu', '_blank');
+        });
+
+        document.getElementById('closeModal').addEventListener('click', function () {
+          window.open('https://forms.office.com/Pages/ResponsePage.aspx?id=IpQbdxYgC0KK0kpkJKIxsvi2Yu3OeP1KhosZ5Cww4rpUQURDWkhFV01SQ0FLV0tTVlM4STJOMjhZSiQlQCN0PWcu');
+        });
+      
+        document.getElementById('modalOverlay').addEventListener('click', function () {
+          closeModals();
+        });
+      
+        function closeModals() {
+          document.getElementById('feedbackModal').style.display = 'none';
+          document.getElementById('reviewModal').style.display = 'none';
+          document.getElementById('modalOverlay').style.display = 'none';
+        }
+    </script>
+
+    <div class='sk-ww-google-reviews' data-embed-id='225828'></div><script src='https://widgets.sociablekit.com/google-reviews/widget.js' async defer></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var ratingStars = document.querySelectorAll('.rating-stars input');
+    
+            ratingStars.forEach(function (star, index, stars) {
+                star.addEventListener('change', function () {
+                    updateColors();
+                });
+    
+                star.addEventListener('mouseover', function () {
+                    hoverStars(index);
+                });
+    
+                star.addEventListener('mouseout', function () {
+                    resetStars();
+                });
+            });
+    
+            function updateColors() {
+                ratingStars.forEach(function (star, index) {
+                    var label = document.querySelector('label[for="' + star.id + '"]');
+                    if (index <= getCurrentRating()) {
+                        label.classList.add('gold');
+                    } else {
+                        label.classList.remove('gold');
+                    }
+                });
+            }
+    
+            function hoverStars(index) {
+                ratingStars.forEach(function (star, i) {
+                    var label = document.querySelector('label[for="' + star.id + '"]');
+                    if (i <= index) {
+                        label.classList.add('gold');
+                    } else {
+                        label.classList.remove('gold');
+                    }
+                });
+            }
+    
+            function resetStars() {
+                updateColors();
+            }
+    
+            function getCurrentRating() {
+                for (var i = ratingStars.length - 1; i >= 0; i--) {
+                    if (ratingStars[i].checked) {
+                        return i;
+                    }
+                }
+                return -1;
+            }
+        });
+    </script>
+
+</body>
+</html>
